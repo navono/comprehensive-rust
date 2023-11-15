@@ -4,6 +4,9 @@ fn main() {
     compound_types();
     reference_types();
     slices();
+    string();
+
+    control_flow();
 }
 
 fn first() {
@@ -78,4 +81,74 @@ fn slices() {
 
     let s2 = &a[..a.len()];
     println!("s2 = &a[..a.len()] : {:?}", s2);
+}
+
+fn string() {
+    // &str an immutable reference to a string slice
+    // String a mutable string buffer
+
+    println!("\nString vs str");
+    let s1: &str = "World";
+    println!("s1: {s1}");
+
+    let mut s2: String = String::from("Hello ");
+    println!("s2: {s2}");
+    s2.push_str(s1);
+    println!("s2: {s2}");
+    
+    let s3: &str = &s2[6..];
+    println!("s3: {s3}");
+}
+
+fn control_flow() {
+    blocks();
+    if_exp();
+    for_loops();
+}
+
+fn blocks() {
+    println!("\nblocks");
+
+    // block 由表达式组成，最后一个表达式的值作为 block 的值（和类型），如果最后一个表达式以分号结尾，则返回 ()。
+    // 上述规则适用于 函数体、if、loop、while、for、match、{} 等
+    let x = {
+        let y = 10;
+        println!("y: {y}");
+        let z = {
+            let w = {
+                3 + 4
+            };
+            println!("w: {w}");
+            y * w
+        };
+        println!("z: {z}");
+        z - y
+    };
+    println!("x: {x}");
+}
+
+fn if_exp() {
+    println!("\nif expresion");
+    let mut x = 10;
+
+    x = if x % 2 == 0 {
+        x / 2
+    } else {
+        3 * x + 1
+    };
+
+    println!("x: {x}");
+}
+
+fn for_loops() {
+    println!("\nfor loops");
+    let v = vec![10, 20, 30];
+
+    for x in v {
+        println!("x: {x}");
+    }
+    
+    for i in (0..10).step_by(2) {
+        println!("i: {i}");
+    }
 }
