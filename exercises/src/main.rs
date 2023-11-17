@@ -95,7 +95,7 @@ fn string() {
     println!("s2: {s2}");
     s2.push_str(s1);
     println!("s2: {s2}");
-    
+
     let s3: &str = &s2[6..];
     println!("s3: {s3}");
 }
@@ -104,6 +104,9 @@ fn control_flow() {
     blocks();
     if_exp();
     for_loops();
+    while_loop();
+    break_continue();
+    loop_exp();
 }
 
 fn blocks() {
@@ -115,9 +118,7 @@ fn blocks() {
         let y = 10;
         println!("y: {y}");
         let z = {
-            let w = {
-                3 + 4
-            };
+            let w = { 3 + 4 };
             println!("w: {w}");
             y * w
         };
@@ -131,11 +132,7 @@ fn if_exp() {
     println!("\nif expresion");
     let mut x = 10;
 
-    x = if x % 2 == 0 {
-        x / 2
-    } else {
-        3 * x + 1
-    };
+    x = if x % 2 == 0 { x / 2 } else { 3 * x + 1 };
 
     println!("x: {x}");
 }
@@ -147,8 +144,71 @@ fn for_loops() {
     for x in v {
         println!("x: {x}");
     }
-    
+
     for i in (0..10).step_by(2) {
         println!("i: {i}");
     }
+}
+
+fn while_loop() {
+    println!("\nwhile loops");
+    let mut x = 10;
+    while x != 1 {
+        x = if x % 2 == 0 { x / 2 } else { 3 * x + 1 };
+    }
+
+    print!("Final x: {x}\n");
+}
+
+fn without_labeled_loops() {
+    let mut break_outer_loop = false;
+
+    for i in [1, 2, 3] {
+        for j in [11, 22, 33] {
+            println!("{i}, {j}");
+
+            if i + j == 24 {
+                break_outer_loop = true;
+                break;
+            }
+        }
+
+        if break_outer_loop {
+            break;
+        }
+    }
+}
+
+fn with_labeled_loops() {
+    'outer: for i in [1, 2, 3] {
+        for j in [11, 22, 33] {
+            println!("{i}, {j}");
+
+            if i + j == 24 {
+                break 'outer;
+            }
+        }
+    }
+}
+
+fn break_continue() {
+    println!("\nbreak and continue");
+    without_labeled_loops();
+    println!("-----");
+    with_labeled_loops();
+}
+
+fn loop_exp() {
+    println!("\nloop expressions");
+    let mut x = 10;
+
+    loop {
+        x = if x % 2 == 0 { x / 2 } else { 3 * x + 1 };
+
+        if x == 1 {
+            break;
+        }
+    }
+
+    println!("Final x: {x}");
 }
